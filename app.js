@@ -26,6 +26,8 @@ colors.forEach(function (color) {
 
 onButton.addEventListener("click", function () {
     if (!isOn) {
+        // THIS WILL PREVENT USER FROM BREAKING THE LOGIC IF HE/SHE CHOICES TO PICK A COLOR BEFORE IT STARTS
+        userGuess.splice(0, userGuess.length);
         addRandomColor();
         showColor(colorArr);
     }
@@ -36,6 +38,7 @@ offButton.addEventListener("click", function () {
     if (isOn) {
         colorArr.splice(0, colorArr.length);
         isOn = false;
+        counter.textContent = 0;
     }
 });
 
