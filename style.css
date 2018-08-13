@@ -1,72 +1,136 @@
+*::before,
+*::after,
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
 body {
-    background-color: black;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 700;
-    margin-top: 1.5rem;
-    font-size: 1.5rem;
+  background-color: black;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .container {
-    display: grid;
-    width: 610px;
-    grid-gap: 40px;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    margin: 50px auto;
+  display: grid;
+  width: 61rem;
+  grid-gap: 4rem;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  margin: 50px auto;
 }
 
-.container>* {
-    width: 300px;
-    height: 300px;
-    display: inline-block;
-    cursor: pointer;
+.container > * {
+  width: 30rem;
+  height: 30rem;
+  display: inline-block;
+  cursor: pointer;
 }
 
 .green {
-    background-color: green;
-    border-bottom-right-radius: 50%;
-    grid-column: 3 / span 2;
-    grid-row: 3 / span 2;
-    opacity: .4;
+  background-color: green;
+  border-bottom-right-radius: 50%;
+  grid-column: 3 / span 2;
+  grid-row: 3 / span 2;
+  opacity: 0.4;
 }
 
 .yellow {
-    background-color: yellow;
-    border-bottom-left-radius: 50%;
-    grid-column: 1 / span 2;
-    grid-row: 3 / span 2;
-    opacity: .4;
+  background-color: yellow;
+  border-bottom-left-radius: 50%;
+  grid-column: 1 / span 2;
+  grid-row: 3 / span 2;
+  opacity: 0.4;
 }
 
 .red {
-    background-color: red;
-    border-top-left-radius: 50%;
-    grid-row: 1 / span 2;
-    grid-column: 1 / span 2;
-    opacity: .4;
+  background-color: red;
+  border-top-left-radius: 50%;
+  grid-row: 1 / span 2;
+  grid-column: 1 / span 2;
+  opacity: 0.4;
 }
 
 .blue {
-    background-color: blue;
-    border-top-right-radius: 50%;
-    grid-row: 1 / span 2;
-    grid-column: 3 / span 2;
-    opacity: .4;
+  background-color: blue;
+  border-top-right-radius: 50%;
+  grid-row: 1 / span 2;
+  grid-column: 3 / span 2;
+  opacity: 0.4;
 }
 
 .circle {
-    background-color: black;
-    border-radius: 50%;
-    grid-row: 2 / 4;
-    grid-column: 2 / 4;
-    cursor: default;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+  background-color: black;
+  border-radius: 50%;
+  grid-row: 2 / 4;
+  grid-column: 2 / 4;
+  cursor: default;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }
 
 p {
-    color: white;
+  color: #fff;
+}
+
+.btn {
+  border: none;
+  padding: 0.6rem;
+  margin: 0.6rem;
+  border-radius: 2.5rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.stop {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.start {
+  background-color: #2ecc71;
+  color: #fff;
+}
+
+.btn:active {
+  transform: translateY(0.2rem);
+}
+
+@media only screen and (max-width: 48em) {
+  .container {
+    width: 45rem;
+    grid-gap: 2rem;
+  }
+
+  .container > * {
+    width: 20rem;
+    height: 20rem;
+  }
+}
+
+@media only screen and (max-width: 30em) {
+  .container {
+    width: 30rem;
+    grid-gap: 1.5rem;
+  }
+
+  .container > * {
+    width: 15rem;
+    height: 15rem;
+  }
+  .btn {
+    font-size: 0.8rem;
+    padding: 0.3rem;
+    margin: 0.3rem;
+  }
 }
