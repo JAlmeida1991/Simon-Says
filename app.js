@@ -1,3 +1,4 @@
+// Event handlers
 const yellow = document.querySelector(".yellow");
 const green = document.querySelector(".green");
 const red = document.querySelector(".red");
@@ -6,35 +7,37 @@ const onButton = document.querySelector(".start");
 const offButton = document.querySelector(".stop");
 const counter = document.querySelector(".counter");
 
+// Game state
 const colors = [yellow, green, red, blue];
 const colorArr = [];
 const userGuess = [];
 
+// Conditional logic needed in order to prevent user from added additional colors
+
 let isOn = false;
 
-colors.forEach(function(color) {
+// Need to use a regular function since ()=> has not lexical this
+colors.forEach(color => {
   color.addEventListener("click", function(e) {
-    //console.log(e.target);
     userGuess.push(this);
-    //console.log(userGuess);
     userLightUp(e);
     compareColors();
   });
 });
 
-onButton.addEventListener("click", function() {
+onButton.addEventListener("click", () => {
   if (!isOn) {
     // THIS WILL PREVENT USER FROM BREAKING THE LOGIC IF HE/SHE CHOICES TO PICK A COLOR BEFORE IT STARTS
-    userGuess.splice(0, userGuess.length);
+    userGuess.splice(0);
     addRandomColor();
     showColor(colorArr);
   }
   isOn = true;
 });
 
-offButton.addEventListener("click", function() {
+offButton.addEventListener("click", () => {
   if (isOn) {
-    colorArr.splice(0, colorArr.length);
+    colorArr.splice(0);
     isOn = false;
     counter.textContent = 0;
   }
@@ -51,7 +54,7 @@ function addRandomColor() {
 function showColor(arr) {
   let index = 0;
 
-  function foo() {
+  function delayColors() {
     if (index === colorArr.length) {
       index = 0;
       return;
@@ -61,19 +64,11 @@ function showColor(arr) {
       arr[index].style.opacity = 0.4;
       index++;
       // RECUSIVE CALL AFTER 1 SECOND TO ITERATE THROUGH COLORS ARRAY
-      setTimeout(foo, 250);
+      setTimeout(delayColors, 250);
     }, 750);
   }
-  foo();
+  delayColors();
 }
-
-// NEED TO BIND IF USING SET TIMEOUT FOR USER CLICK
-// function userLightUp(e) {
-//     e.target.style.opacity = .8;
-//     setTimeout(function (e) {
-//         this.style.opacity = .4;
-//     }.bind(e.target), 1000);
-// }
 
 function userLightUp(e) {
   let target = e.target;
@@ -83,58 +78,41 @@ function userLightUp(e) {
   }, 750);
 }
 
-// function compareColors() {
-//     for (let i = 0; i < colorArr.length; i++) {
-//         if (colorArr[i] !== userGuess[i]) {
-//             console.log('lol');
-//         } else {
-//             addRandomColor();
-//             showColor(colorArr);
-//         }
-//     }
-// }
-
-// let userIndex = 0;
-// let colorIndex = 0;
-
-// function compareColors() {
-//     if (userGuess[userIndex] === colorArr[userIndex] && userIndex + 1 === colorArr.length) {
-//         userIndex++
-//         addRandomColor();
-//         // NEED IN ORDER TO DELAY CORRECT ANSWER
-//         setTimeout(function () {
-//             showColor(colorArr);
-//         }, 1000)
-//     }
-// }
-
 function compareColors() {
-  // STARTSWITH ON STRING CONSTRUCTOR WILL CHECK IF EVERY USER CHOICE MATCHES WITH COLOR ARRAY
-  // NEED TO USE CALL TO INVOKE 'THIS' AS COLOR
-  // ALSO NEED TO EXTRACT CLASS NAME FROM HTMLDIV ELEMENT OTHERWISE IT WILL ALWAYS MATCH
-  if (
-    String.prototype.startsWith.call(
-      colorArr.map(x => x.className),
-      userGuess.map(x => x.className)
-    ) &&
-    colorArr.length === userGuess.length
-  ) {
+  if (checkUserGuess() && colorArr.length === userGuess.length) {
     addRandomColor();
     // NEED IN ORDER TO DELAY CORRECT ANSWER
     setTimeout(function() {
       showColor(colorArr);
-      userGuess.splice(0, colorArr.length);
+      userGuess.splice(0);
     }, 1000);
-  } else if (
-    !String.prototype.startsWith.call(
-      colorArr.map(x => x.className),
-      userGuess.map(x => x.className)
-    )
-  ) {
-    setTimeout(function() {
+    // Want to also check if color array is showing otherwise game will light up before it starts
+  } else if (!checkUserGuess() && colorArr.length > 0) {
+    wrongGuess();
+    setTimeout(() => {
       showColor(colorArr);
-      userGuess.splice(0, colorArr.length);
+      userGuess.splice(0);
     }, 1000);
   }
-  // userGuess.splice(0, colorArr.length);
+}
+
+// STARTSWITH ON STRING CONSTRUCTOR WILL CHECK IF EVERY USER CHOICE MATCHES WITH COLOR ARRAY
+// NEED TO USE CALL TO INVOKE 'THIS' AS COLOR
+// ALSO NEED TO EXTRACT CLASS NAME FROM HTMLDIV ELEMENT OTHERWISE IT WILL ALWAYS MATCH
+
+function checkUserGuess() {
+  return String.prototype.startsWith.call(
+    colorArr.map(x => x.className),
+    userGuess.map(x => x.className)
+  );
+}
+
+// This will only trigger if user incorrectly guesses a color
+function wrongGuess() {
+  colors.forEach(color => {
+    color.style.opacity = 0.8;
+    setTimeout(() => {
+      color.style.opacity = 0.4;
+    }, 500);
+  });
 }
