@@ -13,15 +13,18 @@ const colorArr = [];
 const userGuess = [];
 
 // Conditional logic needed in order to prevent user from added additional colors
-
 let isOn = false;
+// Conditional logic needed in order to prevent user from spamming colors if still computers turn
+let playerTurn = false;
 
 // Need to use a regular function since ()=> has not lexical this
 colors.forEach(color => {
   color.addEventListener("click", function(e) {
-    userGuess.push(this);
-    userLightUp(e);
-    compareColors();
+    if (playerTurn) {
+      userGuess.push(this);
+      userLightUp(e);
+      compareColors();
+    }
   });
 });
 
@@ -37,6 +40,7 @@ onButton.addEventListener("click", () => {
 
 offButton.addEventListener("click", () => {
   if (isOn) {
+    playerTurn = false;
     colorArr.splice(0);
     isOn = false;
     counter.textContent = 0;
@@ -46,21 +50,21 @@ offButton.addEventListener("click", () => {
 function addRandomColor() {
   colorArr.push(colors[Math.floor(Math.random() * 4)]);
   counter.textContent++;
-  console.log(colorArr);
 }
 
 // FUNCTION MUST CALL IT'S SELF RECURSIVELY SINCE USING A LOOP WILL LIGHT UP ALL THE COLORS SYNCHRONOUSLY
 
 function showColor(arr) {
   let index = 0;
-
+  playerTurn = false;
   function delayColors() {
     if (index === colorArr.length) {
+      playerTurn = true;
       index = 0;
       return;
     }
     arr[index].style.opacity = 0.8;
-    setTimeout(function() {
+    setTimeout(() => {
       arr[index].style.opacity = 0.4;
       index++;
       // RECUSIVE CALL AFTER 1 SECOND TO ITERATE THROUGH COLORS ARRAY
@@ -73,16 +77,14 @@ function showColor(arr) {
 function userLightUp(e) {
   let target = e.target;
   target.style.opacity = 0.8;
-  setTimeout(function(e) {
-    target.style.opacity = 0.4;
-  }, 750);
+  setTimeout(() => (target.style.opacity = 0.4), 750);
 }
 
 function compareColors() {
   if (checkUserGuess() && colorArr.length === userGuess.length) {
     addRandomColor();
     // NEED IN ORDER TO DELAY CORRECT ANSWER
-    setTimeout(function() {
+    setTimeout(() => {
       showColor(colorArr);
       userGuess.splice(0);
     }, 1000);
