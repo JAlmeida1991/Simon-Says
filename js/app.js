@@ -1,5 +1,6 @@
 (function() {
-  // Global variables
+  "use strict";
+  // 'Global' variables
   const yellow = document.querySelector(".yellow");
   const green = document.querySelector(".green");
   const red = document.querySelector(".red");
