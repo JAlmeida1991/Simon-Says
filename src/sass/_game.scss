@@ -1,10 +1,3 @@
-@import "base";
-
-.title {
-  color: #fff;
-  margin-bottom: 1rem;
-}
-
 .container {
   display: grid;
   width: 50rem;
@@ -15,12 +8,12 @@
 
   @media only screen and (max-width: 48em) {
     width: 40rem;
-    grid-gap: 2rem;
+    gap: 2rem;
   }
 
   @media only screen and (max-width: 30em) {
     width: 30rem;
-    grid-gap: 1.5rem;
+    gap: 1.5rem;
   }
 }
 
@@ -42,7 +35,7 @@
 }
 
 .green {
-  background-color: green;
+  background-color: $green;
   border-bottom-right-radius: 50%;
   grid-column: 3 / span 2;
   grid-row: 3 / span 2;
@@ -50,7 +43,7 @@
 }
 
 .yellow {
-  background-color: yellow;
+  background-color: $yellow;
   border-bottom-left-radius: 50%;
   grid-column: 1 / span 2;
   grid-row: 3 / span 2;
@@ -58,7 +51,7 @@
 }
 
 .red {
-  background-color: red;
+  background-color: $red;
   border-top-left-radius: 50%;
   grid-row: 1 / span 2;
   grid-column: 1 / span 2;
@@ -66,7 +59,7 @@
 }
 
 .blue {
-  background-color: blue;
+  background-color: $blue;
   border-top-right-radius: 50%;
   grid-row: 1 / span 2;
   grid-column: 3 / span 2;
@@ -83,63 +76,4 @@
   justify-content: center;
   align-items: center;
   z-index: 9999;
-}
-
-p {
-  color: #fff;
-}
-
-.btn {
-  border: none;
-  padding: 1rem;
-  width: 4.5rem;
-  margin: 0.6rem;
-  border-radius: 1.4rem;
-  cursor: pointer;
-  outline: none;
-
-  &:active {
-    transform: translateY(0.1rem);
-  }
-
-  @media only screen and (max-width: 48em) {
-    width: 4rem;
-    padding: 0.8rem;
-    margin: 0.4rem;
-  }
-
-  @media only screen and (max-width: 30em) {
-    font-size: 0.8rem;
-    width: 3rem;
-    padding: 0.6rem;
-    margin: 0.4rem;
-  }
-}
-
-.stop {
-  background-color: $stopBtn;
-  color: #fff;
-}
-
-.start {
-  background-color: $StartBtn;
-  color: #fff;
-}
-
-.counter {
-  color: #000;
-  background-color: #9e9e9e;
-  width: 3.5rem;
-  height: 3.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 1.1rem;
-  @media only screen and (max-width: 48em) {
-    height: 3rem;
-  }
-  @media only screen and (max-width: 30em) {
-    height: 2.5rem;
-    width: 3rem;
-  }
 }

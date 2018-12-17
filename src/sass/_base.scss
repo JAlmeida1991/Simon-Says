@@ -1,16 +1,14 @@
-$stopBtn: #e74c3c;
-$StartBtn: #2ecc71;
-
 *::before,
 *::after,
 * {
-  box-sizing: border-box;
+  box-sizing: inherit;
   margin: 0;
   padding: 0;
 }
 
 html {
   font-size: 62.5%;
+  box-sizing: border-box;
 }
 
 body {
